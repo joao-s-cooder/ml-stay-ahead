@@ -3,16 +3,28 @@ from pydantic import BaseModel
 import pandas as pd
 import joblib
 import os
+from contextlib import asynccontextmanager
 from src.utils.paths import ARTIFACTS_DIR
 
-app = FastAPI(title="Passos Mágicos - School Lag Prediction API")
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    global model
+    if os.path.exists(MODEL_PATH):
+        model = joblib.load(MODEL_PATH)
+        print("Model loaded successfully.")
+    else:
+        print(f"Warning: Model not found at {MODEL_PATH}. API will not be able to predict.")
+    
+    yield  # Aqui a API "roda". O que vem depois do yield é no shutdown.
+    print("Shutting down API...")
+
+app = FastAPI(title="Passos Mágicos - School Lag Prediction API", lifespan=lifespan)
 
 MODEL_PATH = os.path.join(ARTIFACTS_DIR, 'model.joblib')
 
 # Carrega o modelo globalmente quando iniciar o carregamento apos cada request
 model = None
 
-@app.on_event("startup")
 def load_model():
     global model
     if os.path.exists(MODEL_PATH):
