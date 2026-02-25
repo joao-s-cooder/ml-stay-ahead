@@ -1,6 +1,7 @@
 from fastapi.testclient import TestClient
+from unittest.mock import patch
+import numpy as np
 from api.app import app
-import pytest
 
 client = TestClient(app)
 
@@ -9,8 +10,13 @@ def test_read_main():
     assert response.status_code == 200
     assert response.json() == {"message": "Welcome to Passos Mágicos Lag Prediction API"}
 
-def test_predict_endpoint():
-    # Mock data compatível com StudentData model
+@patch('api.app.model')
+def test_predict_endpoint_success(mock_model):
+    # 1. Mock do modelo para retornar uma previsão fixa
+    mock_model.predict.return_value = np.array([1])
+    mock_model.predict_proba.return_value = np.array([[0.1, 0.9]])
+    
+    # 2. Payload de teste (com dados fictícios, mas no formato esperado)
     payload = {
         "idade_22": 15.0,
         "genero": "Menino",
@@ -26,15 +32,10 @@ def test_predict_endpoint():
         "ingles": 8.0
     }
     
-    # Necessita do modelo carregado. Se o modelo não estiver carregado, retorna 503.
-    # Podemos aceitar 200 ou 503 como respostas "válidas" neste contexto (endpoint alcançável).
-    # Idealmente, devemos mockar o modelo.
-    
+    # 3. Enviamos a requisição POST para o endpoint de previsão
     response = client.post("/predict", json=payload)
     
-    if response.status_code == 503:
-        pytest.skip("Modelo não carregado na API, pulando teste de predição.")
-    
+    # 4. Validamos se passou pelo caminho feliz da API
     assert response.status_code == 200
     data = response.json()
     assert "risk_of_lag" in data

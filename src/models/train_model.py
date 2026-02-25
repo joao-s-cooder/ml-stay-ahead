@@ -6,7 +6,7 @@ import mlflow
 import mlflow.sklearn
 from sklearn.model_selection import train_test_split, RandomizedSearchCV
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import classification_report, accuracy_score
+from sklearn.metrics import classification_report, accuracy_score, recall_score, f1_score
 from sklearn.pipeline import Pipeline
 
 from src.data.load_data import load_raw_data
@@ -68,7 +68,7 @@ def train_model():
             verbose=1, 
             random_state=42, 
             n_jobs=-1,
-            scoring='accuracy' 
+            scoring='recall' 
         )
         
         random_search.fit(X_train, y_train)
@@ -87,11 +87,18 @@ def train_model():
         y_pred = best_model.predict(X_test)
         
         acc = accuracy_score(y_test, y_pred)
+        rec = recall_score(y_test, y_pred, average='binary')
+        f1 = f1_score(y_test, y_pred, average='binary')
+
         print(classification_report(y_test, y_pred))
-        print(f"Test Accuracy: {acc}")
+        print(f"Test Accuracy: {acc:.4f}")
+        print(f"Test Recall: {rec:.4f}")
+        print(f"Test F1-Score: {f1:.4f}")
         
         # Log Metrics
         mlflow.log_metric("test_accuracy", acc)
+        mlflow.log_metric("test_recall", rec)
+        mlflow.log_metric("test_f1_score", f1)
         
         # 7. Save
         print(f"Saving best model to {MODEL_PATH}...")

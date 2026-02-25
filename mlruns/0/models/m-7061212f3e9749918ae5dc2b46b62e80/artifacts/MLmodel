@@ -1,0 +1,23 @@
+artifact_path: /home/joao-junior/Documentos/fiap/stage_five/datathon/mlStayAhead/mlruns/0/models/m-7061212f3e9749918ae5dc2b46b62e80/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.13.7
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.8.0
+    skops_trusted_types: null
+mlflow_version: 3.9.0
+model_id: m-7061212f3e9749918ae5dc2b46b62e80
+model_size_bytes: 1510978
+model_uuid: m-7061212f3e9749918ae5dc2b46b62e80
+prompts: null
+run_id: b8fc8ea066b84baaa961494761bcae24
+utc_time_created: '2026-02-24 23:08:24.304126'
