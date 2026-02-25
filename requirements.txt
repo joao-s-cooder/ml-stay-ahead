@@ -15,7 +15,7 @@ coverage==7.13.4
 cryptography==46.0.5
 cycler==0.12.1
 databricks-sdk==0.89.0
-deprecation==2.1.0
+deprecation
 distro==1.9.0
 docker==7.1.0
 dynaconf==3.2.12
@@ -35,7 +35,7 @@ graphene==3.4.3
 graphql-core==3.2.7
 graphql-relay==3.2.0
 greenlet==3.3.1
-gunicorn==23.0.0
+gunicorn
 h11==0.16.0
 httpcore==1.0.9
 httptools==0.7.1
@@ -54,7 +54,7 @@ litestar-htmx==0.5.0
 Mako==1.3.10
 markdown-it-py==4.0.0
 MarkupSafe==3.0.3
-matplotlib==3.10.8
+matplotlib
 mdurl==0.1.2
 mlflow==3.9.0
 mlflow-skinny==3.9.0
@@ -74,7 +74,7 @@ packaging==26.0
 pandas==2.2.3
 patsy==1.0.2
 pillow==12.1.1
-plotly==5.24.1
+plotly
 pluggy==1.6.0
 polyfactory==3.3.0
 prettytable==3.17.0
@@ -102,7 +102,7 @@ scikit-learn==1.8.0
 scipy==1.17.1
 shellingham==1.5.4
 six==1.17.0
-skops==0.13.0
+skops
 smmap==5.0.2
 sniffio==1.3.1
 SQLAlchemy==2.0.46
