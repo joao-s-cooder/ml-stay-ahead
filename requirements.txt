@@ -70,7 +70,7 @@ opentelemetry-api==1.39.1
 opentelemetry-proto==1.39.1
 opentelemetry-sdk==1.39.1
 opentelemetry-semantic-conventions==0.60b1
-packaging==26.0
+packaging
 pandas==2.2.3
 patsy==1.0.2
 pillow==12.1.1
